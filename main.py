@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QLabel, QApplication, QPushButton, QLineEdit, QListWidget, QGridLayout, QVBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5 import uic
 import sys
 import os
