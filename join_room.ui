@@ -28,7 +28,7 @@
       <height>191</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="Layout">
      <item>
       <widget class="QLabel" name="main_label">
        <property name="font">

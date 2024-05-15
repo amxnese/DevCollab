@@ -31,7 +31,7 @@ QLineEdit{
       <height>198</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QVBoxLayout" name="Layout">
      <item>
       <widget class="QLabel" name="register_label">
        <property name="minimumSize">

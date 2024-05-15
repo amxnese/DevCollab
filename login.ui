@@ -62,7 +62,7 @@ QLineEdit{
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="Layout">
        <item>
         <widget class="QLabel" name="username_label">
          <property name="minimumSize">
