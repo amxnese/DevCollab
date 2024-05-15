@@ -7,9 +7,9 @@ from register import Register
 from join_room import Join_Room
 from create_room import Create_Room
 
-class UI(QMainWindow):
+class MainUI(QMainWindow):
   def __init__(self):
-    super(UI, self).__init__()
+    super(MainUI, self).__init__()
     uic.loadUi("home.ui", self)
     self.create_button.clicked.connect(self.create)
     self.join_button.clicked.connect(self.join)
@@ -47,5 +47,5 @@ class UI(QMainWindow):
 
 # initialize the app
 app = QApplication(sys.argv)
-UIWindow = UI()
+UIWindow = MainUI()
 app.exec_()
