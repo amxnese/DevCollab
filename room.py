@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel, QListWidgetItem
+from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel, QListWidgetItem, QMessageBox
 from PyQt5 import uic, QtGui
 
 class TaskWidget(QWidget):
