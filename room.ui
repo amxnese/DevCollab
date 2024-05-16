@@ -269,31 +269,6 @@ QMainWindow{
          <bold>false</bold>
         </font>
        </property>
-       <item>
-        <property name="text">
-         <string>change the home background</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>add the feature of having friends</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>remove the badges page</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>reduce the colors to only 3</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>combine the user table with the levels table</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item row="2" column="5">
@@ -333,6 +308,9 @@ QMainWindow{
         <font>
          <pointsize>10</pointsize>
         </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="text">
         <string>Completed</string>
