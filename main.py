@@ -22,7 +22,7 @@ class MainUI(QMainWindow):
 
   def join(self):
     if not globals.current_user:
-      QMessageBox.warning(self, 'Warning', 'You have be logged in in order to join rooms')
+      QMessageBox.warning(self, 'Warning', 'You have to be logged in in order to join rooms')
     else:
       # closing the current window
       self.close()

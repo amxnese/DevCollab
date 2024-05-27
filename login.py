@@ -60,5 +60,5 @@ class LoginUI(QMainWindow):
         QMessageBox.warning(self, 'Warning', f'Wrong username')
         
       # commiting changes and closing database
-      # conn.commit()
+      conn.commit()
       conn.close()
