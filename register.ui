@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>326</height>
+    <width>684</width>
+    <height>385</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,10 +25,10 @@ QLineEdit{
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>20</x>
       <y>20</y>
-      <width>391</width>
-      <height>246</height>
+      <width>651</width>
+      <height>311</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="Layout">
@@ -86,7 +86,7 @@ QLineEdit{
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>33</height>
+           <height>45</height>
           </size>
          </property>
          <property name="font">
@@ -145,7 +145,7 @@ padding-left : 4px;
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>33</height>
+           <height>45</height>
           </size>
          </property>
          <property name="font">
@@ -185,7 +185,7 @@ padding-left : 4px;
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>41</height>
+         <height>45</height>
         </size>
        </property>
        <property name="font">
@@ -209,7 +209,7 @@ padding-left : 4px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>480</width>
+     <width>684</width>
      <height>22</height>
     </rect>
    </property>

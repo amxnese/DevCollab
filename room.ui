@@ -56,7 +56,7 @@
 	
 }
 #tasks_widget::item:hover {
-    background-color: rgb(171, 171, 171); 
+    background-color: linear-gradient(135deg, rgb(171, 171, 171), rgb(100, 100, 100));
     color: white;
 }
 #like_button:hover{
@@ -68,20 +68,54 @@ QMainWindow{
 #like_button{
 	background-color: rgb(103, 144, 255);
 }
+QPushButton{
+color: black;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+}
+#like_button {
+   background: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1, 
+        stop:0 rgba(66, 103, 178, 255), 
+        stop:1 rgba(0, 51, 153, 255)
+    );
+}
+
 #dislike_button{
-	background-color: rgb(255, 153, 28)
+	background: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1, 
+        stop:0 rgba(255, 140, 0, 255), 
+        stop:1 rgba(255, 69, 0, 255)
+    );
 }
 #add_task_button{
-	background-color: 
+	background: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1, 
+        stop:0 rgba(245, 245, 245, 255), 
+        stop:1 rgba(220, 220, 220, 255)
+    );
 }
 #remove_button{
-	background-color: rgb(255, 71, 39);
+	background: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1, 
+        stop:0 rgba(220, 20, 60, 255), 
+        stop:1 rgba(178, 34, 34, 255)
+    );
 }
 #woi_button{
-	background-color: rgb(253, 255, 93)
+	background: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1, 
+        stop:0 rgba(255, 223, 0, 255), 
+        stop:1 rgba(255, 200, 0, 255)
+    );
 }
 #completed_button{
-	background-color: rgb(0, 255, 0)
+	background: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1, 
+        stop:0 rgba(34, 139, 34, 255), 
+        stop:1 rgba(0, 255, 0, 255)
+    );
 }
 
 </string>

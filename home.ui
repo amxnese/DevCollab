@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>473</width>
-    <height>285</height>
+    <width>683</width>
+    <height>375</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,10 +22,10 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>10</x>
       <y>20</y>
-      <width>361</width>
-      <height>191</height>
+      <width>671</width>
+      <height>301</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -56,6 +56,12 @@
      </item>
      <item row="1" column="0">
       <widget class="QPushButton" name="create_button">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>53</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -71,6 +77,12 @@
      </item>
      <item row="1" column="1">
       <widget class="QPushButton" name="join_button">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>53</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -86,6 +98,12 @@
      </item>
      <item row="2" column="0">
       <widget class="QPushButton" name="register_button">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>53</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -101,6 +119,12 @@
      </item>
      <item row="2" column="1">
       <widget class="QPushButton" name="login_button">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>53</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -122,7 +146,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>473</width>
+     <width>683</width>
      <height>22</height>
     </rect>
    </property>
