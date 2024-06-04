@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5 import QtWidgets
 from PyQt5 import uic
 from room import Room
+import sys
 import sqlite3
 import globals
 
@@ -24,8 +26,14 @@ class Join_Room(QMainWindow):
       # clear the input
       self.room_id.clear()
     else:
-      project_id = project_id[0]
-      globals.current_project = project_id
-      self.close()
+      # updating the current_project global variable
+      globals.current_project = project_id[0]
+      # showing the room's window
       self.room_ui = Room()
-      self.room_ui.show()
+      self.room_ui.setupUi(self)
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    main_window = MainWindowApp()
+    main_window.show()
+    sys.exit(app.exec_())
