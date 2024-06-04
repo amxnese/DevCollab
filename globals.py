@@ -1,3 +1,3 @@
-current_user = 'newuser'
+current_user = None
 current_project = None
 message = None
