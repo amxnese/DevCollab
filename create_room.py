@@ -27,7 +27,7 @@ class Create_Room(QMainWindow):
       conn.close()
       globals.message = ['information', f"Your project's id is {project_id}"]
       globals.current_project = project_id
-      self.close()
+      # self.close()
       self.room_ui = Room()
-      self.room_ui.show()
+      self.room_ui.setupUi(self)
 
