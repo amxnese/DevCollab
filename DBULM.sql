@@ -1,26 +1,31 @@
-Table Users {
-  username varchar [pk]
-  password varchar
-}
+CREATE TABLE Users (
+  username VARCHAR PRIMARY KEY,
+  password VARCHAR
+);
 
-Table Projects {
-  project_id int [pk]
-  username varchar [ref: > Users.username]
-  name varchar
-}
+CREATE TABLE Projects (
+  project_id INTEGER PRIMARY KEY,
+  username VARCHAR,
+  name VARCHAR,
+  FOREIGN KEY (username) REFERENCES Users(username)
+);
 
-Table Tasks {
-  task_id int [pk]
-  project_id int [ref: > Projects.project_id]
-  username varchar [ref: > Users.username]
-  likes int
-  dislikes int
-  status varchar
-}
+CREATE TABLE Tasks (
+  task_id INTEGER PRIMARY KEY,
+  project_id INTEGER,
+  username VARCHAR,
+  likes INTEGER,
+  dislikes INTEGER,
+  status VARCHAR,
+  FOREIGN KEY (project_id) REFERENCES Projects(project_id),
+  FOREIGN KEY (username) REFERENCES Users(username)
+);
 
-Table Interactions {
-  interaction_id int [pk]
-  task_id int [ref: > Tasks.task_id]
-  username varchar [ref: > Users.username]
-  type varchar
-}
+CREATE TABLE Interactions (
+  interaction_id INTEGER PRIMARY KEY,
+  task_id INTEGER,
+  username VARCHAR,
+  type VARCHAR,
+  FOREIGN KEY (task_id) REFERENCES Tasks(task_id),
+  FOREIGN KEY (username) REFERENCES Users(username)
+);
