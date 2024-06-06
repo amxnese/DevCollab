@@ -1,21 +1,49 @@
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLineEdit
 from abstraction import Submitions
 import sqlite3
-from PyQt5 import uic
+from PyQt5 import uic, QtGui
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QMouseEvent
+from PyQt5.QtCore import QRect
 import globals
 
-# class LoginUI(QMainWindow, Submitions):
+class ClickableLabel(QLabel):
+    def __init__(self, login_ui, *args, **kwargs):
+        super(ClickableLabel, self).__init__(*args, **kwargs)
+        self.setCursor(Qt.PointingHandCursor)
+        self.login_ui = login_ui
+
+    def mousePressEvent(self, event: QMouseEvent):
+        if event.button() == Qt.LeftButton:
+          from main import MainUI
+          self.main_window = MainUI()
+          self.main_window.show()
+          self.login_ui.close()
 class LoginUI(QMainWindow):
   def __init__(self):
     super(LoginUI, self).__init__()
     uic.loadUi("login.ui", self)
+    # connecting the login button to an event
     self.login_button.clicked.connect(self.submit)
+
+    # replacing the regular label to a label that has an event
+    self.label = ClickableLabel(self, self.centralwidget)
+    self.label.setGeometry(QRect(10, 0, 47, 51)) 
+    self.label.setAutoFillBackground(False)
+    self.label.setText("")
+    self.label.setPixmap(QtGui.QPixmap("arrow.svg"))
+    self.label.setScaledContents(True)
+    self.label.setObjectName("label")
+    self.setMaximumSize(690, 375)
+    self.setMinimumSize(690, 375)
+    self.password_login.setEchoMode(QLineEdit.Password) 
     
   def home(self):
     self.close()
-    # late import to avoid circular imports
     from main import MainUI
     self.mainWindow = MainUI()
+    self.mainWindow.show()
 
   def submit(self):
     # check if username input is not empty
@@ -62,3 +90,5 @@ class LoginUI(QMainWindow):
       # commiting changes and closing database
       conn.commit()
       conn.close()
+
+

@@ -1,16 +1,40 @@
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from PyQt5 import QtWidgets
-from PyQt5 import uic
 from room import Room
 import sys
 import sqlite3
+from PyQt5 import uic, QtGui
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QMouseEvent
+from PyQt5.QtCore import QRect
 import globals
 
+
+class ClickableLabel(QLabel):
+    def __init__(self, login_ui, *args, **kwargs):
+        super(ClickableLabel, self).__init__(*args, **kwargs)
+        self.setCursor(Qt.PointingHandCursor)
+        self.login_ui = login_ui
+
+    def mousePressEvent(self, event: QMouseEvent):
+        if event.button() == Qt.LeftButton:
+          from main import MainUI
+          self.main_window = MainUI()
+          self.main_window.show()
+          self.login_ui.close()
 class Join_Room(QMainWindow):
   def __init__(self):
     super(Join_Room, self).__init__()
     uic.loadUi("join_room.ui", self)
     self.JoinButton.clicked.connect(self.join)
+    self.label = ClickableLabel(self, self.centralwidget)
+    self.label.setGeometry(QRect(10, 0, 47, 51)) 
+    self.label.setAutoFillBackground(False)
+    self.label.setText("")
+    self.label.setPixmap(QtGui.QPixmap("arrow.svg"))
+    self.label.setScaledContents(True)
+    self.label.setObjectName("label")
     
   def join(self):
     code = self.room_id.text()
