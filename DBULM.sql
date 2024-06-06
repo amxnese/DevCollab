@@ -17,6 +17,8 @@ CREATE TABLE Tasks (
   likes INTEGER,
   dislikes INTEGER,
   status VARCHAR,
+  statusby VARCHAR,
+  content VARCHAR,
   FOREIGN KEY (project_id) REFERENCES Projects(project_id),
   FOREIGN KEY (username) REFERENCES Users(username)
 );
