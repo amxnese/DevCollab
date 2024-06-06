@@ -41,7 +41,7 @@ class MainUI(QMainWindow):
       self.label.setGeometry(QRect(10, 10, 55, 55))
       self.label.setAutoFillBackground(False)
       self.label.setText("")
-      self.label.setPixmap(QtGui.QPixmap("logout1.png"))
+      self.label.setPixmap(QtGui.QPixmap("logout.png"))
       self.label.setScaledContents(True)
       self.label.setObjectName("label")
 
