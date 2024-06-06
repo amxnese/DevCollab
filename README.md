@@ -1,1 +1,7 @@
 # DevCollab
+
+## requirements
+
+  PyQt5==5.15.10
+  PyQt5-Qt5==5.15.2
+  PyQt5-sip==12.13.0
