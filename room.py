@@ -1,10 +1,27 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QLabel, QListWidgetItem, QMessageBox
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5 import uic
 import sqlite3
+from PyQt5 import QtGui
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QMouseEvent
+from PyQt5.QtCore import QRect
 import globals
 from PyQt5.QtCore import QTimer
+
+class ClickableLabel(QLabel):
+    def __init__(self, room, *args, **kwargs):
+        super(ClickableLabel, self).__init__(*args, **kwargs)
+        self.setCursor(Qt.PointingHandCursor)
+        self.room = room
+
+    def mousePressEvent(self, event: QMouseEvent):
+        if event.button() == Qt.LeftButton:
+            from join_room import Join_Room
+            self.join_room = Join_Room()
+            self.join_room.show()
+            self.room.close()
 
 class TaskWidget(QWidget):
     def __init__(self, task_name, likes=0, dislikes=0, task_id=None):
@@ -148,7 +165,7 @@ class Room(QWidget):
         self.gridLayout.setObjectName("gridLayout")
 
         self.room_name_label = QtWidgets.QLabel(self.centralwidget)
-        self.room_name_label.setMinimumSize(QtCore.QSize(0, 33))
+        self.room_name_label.setMinimumSize(QtCore.QSize(0, 60))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.room_name_label.setFont(font)
@@ -157,7 +174,7 @@ class Room(QWidget):
         self.gridLayout.addWidget(self.room_name_label, 0, 0, 1, 6)
 
         self.task_input = QtWidgets.QLineEdit(self.centralwidget)
-        self.task_input.setMinimumSize(QtCore.QSize(0, 31))
+        self.task_input.setMinimumSize(QtCore.QSize(0, 50))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.task_input.setFont(font)
@@ -240,6 +257,14 @@ class Room(QWidget):
 
         self.retranslateUi(Main_Window)
         QtCore.QMetaObject.connectSlotsByName(Main_Window)
+
+        self.label = ClickableLabel(Main_Window, self.centralwidget)
+        self.label.setGeometry(QRect(10, 0, 47, 51)) 
+        self.label.setAutoFillBackground(False)
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap("arrow.svg"))
+        self.label.setScaledContents(True)
+        self.label.setObjectName("label")
 
         ''' LOGIC '''
 
@@ -455,16 +480,25 @@ class Room(QWidget):
                 # updating database
                 conn = sqlite3.connect('myDb.db')
                 cur = conn.cursor()
-                woi = cur.execute('select status from tasks where task_id=?', (task_id,)).fetchone()[0]
-                if woi == 'woi':
-                    QMessageBox.warning(self, 'Invalid', 'task is already being worked on')
-                    return
-                cmplt = cur.execute('select status from tasks where task_id=?', (task_id,)).fetchone()[0]
-                if cmplt == 'completed':
-                    QMessageBox.warning(self, 'Invalid', 'task is already completed')
-                    return
-                selected.setBackground(QtGui.QColor(253, 255, 93))
-                cur.execute('update tasks set status=? where task_id=?', ('woi', task_id))
+                status = cur.execute('select status from tasks where task_id=?', (task_id,)).fetchone()[0]
+                status_by =  cur.execute('select statusby from tasks where task_id=?', (task_id,)).fetchone()[0]
+                if status == 'woi':
+                    if status_by == globals.current_user:
+                        selected.setBackground(QtGui.QColor(203, 203, 203))
+                        cur.execute(f'UPDATE tasks SET statusby = ? where task_id=?', (None, task_id))
+                        cur.execute('UPDATE tasks SET status = ? WHERE task_id = ?', (None, task_id))
+                    else:
+                        QMessageBox.warning(self, 'Invalid', f'this task is already being worked on by {status_by}')
+                elif status == 'completed':
+                    if status_by == globals.current_user:
+                        selected.setBackground(QtGui.QColor(253, 255, 93))
+                        cur.execute('update tasks set status=? where task_id=?', ('woi', task_id))
+                    else:
+                        QMessageBox.warning(self, 'Invalid', f'task has been already completed by {status_by}')
+                else:
+                    selected.setBackground(QtGui.QColor(253, 255, 93))
+                    cur.execute('update tasks set status=? where task_id=?', ('woi', task_id))
+                    cur.execute('update tasks set statusby=? where task_id=?', (globals.current_user, task_id))
                 conn.commit()
             except sqlite3.Error as e:
                 QMessageBox.critical(self, "Database Error", f"An error occurred: {e}")
@@ -475,16 +509,32 @@ class Room(QWidget):
         selected = self.tasks_widget.currentItem()
         if selected:
             try:
-                selected.setBackground(QtGui.QColor(0, 255, 0))
                 # updating database
                 conn = sqlite3.connect('myDb.db')
                 cur = conn.cursor()
                 task_id = self.tasks_widget.itemWidget(selected).get_id()
-                cmplt = cur.execute('select status from tasks where task_id=?', (task_id,)).fetchone()[0]
-                if cmplt == 'completed':
-                    QMessageBox.warning(self, 'Invalid', 'task is already completed')
-                    return
-                cur.execute('update tasks set status=? where task_id=?', ('completed', task_id))
+                status = cur.execute('select status from tasks where task_id=?', (task_id,)).fetchone()[0]
+                status_by =  cur.execute('select statusby from tasks where task_id=?', (task_id,)).fetchone()[0]
+                # case where selected task is already completed
+                if status == 'completed':
+                    # case where task is completed by the logged in user
+                    if status_by == globals.current_user:
+                        selected.setBackground(QtGui.QColor(203, 203, 203))
+                        cur.execute(f'UPDATE tasks SET statusby = ? where task_id=?', (None, task_id))
+                        cur.execute('UPDATE tasks SET status = ? WHERE task_id = ?', (None, task_id))
+                    else:
+                        QMessageBox.warning(self, 'Invalid', f'task has been already completed by {status_by}')
+                elif status == 'woi':
+                    if status_by == globals.current_user:
+                        selected.setBackground(QtGui.QColor(0, 255, 0))
+                        cur.execute('update tasks set status=? where task_id=?', ('completed', task_id))
+                        cur.execute('update tasks set statusby=? where task_id=?', (globals.current_user, task_id))
+                    else:
+                        QMessageBox.warning(self, 'Invalid', f'task is already being worked on by {status_by}')
+                else:
+                    selected.setBackground(QtGui.QColor(0, 255, 0))
+                    cur.execute('update tasks set status=? where task_id=?', ('completed', task_id))
+                    cur.execute('update tasks set statusby=? where task_id=?', (globals.current_user, task_id))
                 conn.commit()
             except sqlite3.Error as e:
                 QMessageBox.critical(self, "Database Error", f"An error occurred: {e}")
