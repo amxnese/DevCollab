@@ -283,13 +283,13 @@ class Room(QWidget):
             # fetching tasks related to the room
             conn = sqlite3.connect('myDb.db')
             cur = conn.cursor()
-            tasks = cur.execute(f'select * from tasks where project_id={globals.current_project}').fetchall()
+            tasks = cur.execute(f'select task_id, likes, dislikes, status, content from tasks where project_id={globals.current_project}').fetchall()
             for task in tasks:
                 task_id = task[0]
-                likes = task[3]
-                dislikes = task[4]
-                status = task[5]
-                task_content = task[6]
+                likes = task[1]
+                dislikes = task[2]
+                status = task[3]
+                task_content = task[4]
                 task_widget = TaskWidget(task_content, likes, dislikes, task_id)
                 list_item = QListWidgetItem(self.tasks_widget)
                 list_item.setSizeHint(task_widget.sizeHint())
